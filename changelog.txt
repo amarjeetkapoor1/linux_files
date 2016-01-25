@@ -1,0 +1,128 @@
+changelog-:
+# install sagemaths
+	sudo apt-get install g++ lrzip
+	lrunzip  Ubuntu_14.04_LTS_sage-6.7-x86_64-Linux.tar.lrz
+	sudo gedit /etc/apt/sources.list
+	sudo apt-get dpkg-dev
+	cd sageL
+	sudo apt-get install binutils gcc make m4 perl tar
+	sudo apt-get install build-essential m4
+	export MAKE='make -j8'
+	sudo apt-get install tk8.5-dev
+	cd sageL
+	./configure
+	makel
+
+#install cgi for c++
+	cd cgicc-3.2.9
+	./configure
+	make
+	sudo make install
+ 
+
+#install apache2
+	sudo apt-get install apache2
+
+#install opencv
+	sudo apt-get install build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev 
+	python-numpy python-tk libtbb-dev libeigen2-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev 				libx264-dev libqt4-dev libqt4-opengl-dev sphinx-common libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev
+	cd opencv
+	mkdir build
+	cd build
+	 cmake -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
+
+	make
+	sudo gedit /etc/ld.so.conf.d/opencv.conf
+	sudo make install
+	sudo ldconfig
+	sudo gedit /etc/bash.bashrc
+		PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+		export PKG_CONFIG_PATH 
+
+#congfigure sage to work with opencv and from anyplace in terminal
+	sudo cp sageL/sage /usr/local/bin/
+	sudo gedit  /usr/local/bin
+	sudo gedit  /usr/local/bin/sage
+	cd /usr/local/lib/python2.7/dist-packages/
+	cp cv2.so /home/amarjeet/sageL/local/lib/python2.7/site-packages/
+	cp cv.py /home/amarjeet/sageL/local/lib/python2.7/site-packages/
+	cd~
+
+#configure apache for cgi
+	sudo gedit /etc/apache2/sites-available/000-default.conf 
+		#uncomment Include conf-available/sever-cgi-bin	
+	sudo a2enmod cgi
+	sudo apache2 restart
+	sudo gedit /etc/apache2/httpd.conf
+  	cd /etc/apache2/mods-enabled
+  	sudo ln -s ../mods-available/userdir.conf userdir.conf
+  	sudo ln -s ../mods-available/userdir.load userdir.load
+  	sudo /etc/init.d/apache2 restart
+
+#install  
+  sudo apt-get install pip
+  sudo apt-get install python-scipy 
+  sudo apt-get install python-matplotlib
+  sudo apt-get install ipython
+  sudo apt-get install qtcreator
+
+#image processing in sage
+  cd sageL
+  export SAGE_MATPLOTLIB_GUI=yes
+  sage -f matplotlib
+  make
+#installations 
+  sudo pip install -U scikit-image
+  sudo apt-get install texlive-full
+  sudo apt-get install gimp
+  sudo apt-get install tesseract-ocr
+	sudo apt-get install ImageMagick
+  
+#git 
+  sudo apt-get install git
+  cd projects/imageprocess/
+  git init
+  git remote add origin https://amarjeetkapoor@bitbucket.org/amarjeetkapoor/image-process.git
+  git commit -m 'getcolor and getshape functions'
+  git config --global user.email "amarjeet.kapoor1@gmail.com"
+  git config --global user.name "amarjeetkapoor"
+  git commit -m 'getcolor and getshape functions'
+  git push -u origin master
+  
+#doxygen
+	git clone https://github.com/doxygen/doxygen.git
+  cd doxygen/
+  mkdir build
+	sudo apt-get install flex
+  sudo apt-get install bison
+  cmake -G "Unix Makefiles" 
+  make
+ 	cmake -Dbuild_doc=YES
+  make doc
+  sudo apt-get install doxygen-gui
+
+#configure latex with sagetex 
+ cd Downloads/
+ latex makecmds.ins
+ latex makecmds.dtx
+
+
+sudo apt-get install openssh-server 
+
+#To retrive lost data
+sudo extundelete --restore-directory /home/amarjeet/ /dev/sda2
+
+#REVEAL-MD
+sudo apt-get install npm
+npm install -g reveal-md
+	install node
+
+#screen_share
+sudo apt-get install xrdp 
+sudo apt-get install tightvncserver 
+sudo apt-get install x11vnc
+sudo apt-get install ubuntu-desktop tightvncserver
+##use
+x11vnc 
+xtightvncviewer 192.168.20.33:5900
+

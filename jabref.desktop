@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=gnome-panel-launcher
+Name[en_US]=jabref
+Exec=java -jar /home/amarjeet/packages/JabRef-3.2.jar 
+Name=jabref
+Icon=gnome-panel-launcher
